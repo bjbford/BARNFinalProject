@@ -35,14 +35,20 @@ void txtOutput(float *x, float *y){
 	FILE *file = fopen("dist.txt","w");
 
 	//write xCartesian Array values to "dist.txt" file
-	fwrite(x,sizeof(float),92,file);
+	int i = 0;
+	for(i=0;i<sizeof(x);i++){
+	    fprintf(file, "%f",x[i]);
+	}
 
 	//print a new line to space out x and y
 	char newLine[] = "\r\n";
-	fwrite(newLine,1,sizeof(newLine),file);
+	fprintf(file, "%s",newLine);
 
 	//write yCartesian Array values to "dist.txt" file
-	fwrite(y,sizeof(float),92,file);
+	int j = 0;
+	for(j=0;i<sizeof(y);j++){
+	    fprintf(file, "%f",y[j]);
+	}
 
 	fclose(file);
 }
