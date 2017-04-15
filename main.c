@@ -8,8 +8,8 @@
 #include "lcd.h"
 #include "ir.h"
 #include "button.h"
+#include "commands.h"
 
-void init_All();
 
 /*
  * main.c
@@ -17,14 +17,26 @@ void init_All();
 int main(void) {
 	init_All();
 	
-	return 0;
+
+	oi_t *sensor_data = oi_alloc() ;
+	oi_init(sensor_data) ;
+
+
+
+	while (1)
+	{
+	    move_roomba() ;
+	}
+
+
+
 }
 
 /**
  *	Initializes all functions needed for Rover.
  */
 void init_All(){
-	WiFi_start("password");
+//	WiFi_start("password");
 	uart_init();
 	lcd_init();
 	button_init();
@@ -33,4 +45,6 @@ void init_All(){
 	servo_init();
 	oi_t *sensor_data = oi_alloc();
 	oi_init(sensor_data);
+
 }
+
