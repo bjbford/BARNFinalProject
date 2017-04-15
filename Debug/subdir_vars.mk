@@ -11,6 +11,8 @@ CMD_SRCS += \
 C_SRCS += \
 ../WiFi.c \
 ../button.c \
+../commands.c \
+../helpers.c \
 ../ir.c \
 ../lcd.c \
 ../main.c \
@@ -24,6 +26,8 @@ C_SRCS += \
 C_DEPS += \
 ./WiFi.d \
 ./button.d \
+./commands.d \
+./helpers.d \
 ./ir.d \
 ./lcd.d \
 ./main.d \
@@ -37,6 +41,8 @@ C_DEPS += \
 OBJS += \
 ./WiFi.obj \
 ./button.obj \
+./commands.obj \
+./helpers.obj \
 ./ir.obj \
 ./lcd.obj \
 ./main.obj \
@@ -50,6 +56,8 @@ OBJS += \
 OBJS__QUOTED += \
 "WiFi.obj" \
 "button.obj" \
+"commands.obj" \
+"helpers.obj" \
 "ir.obj" \
 "lcd.obj" \
 "main.obj" \
@@ -63,6 +71,8 @@ OBJS__QUOTED += \
 C_DEPS__QUOTED += \
 "WiFi.d" \
 "button.d" \
+"commands.d" \
+"helpers.d" \
 "ir.d" \
 "lcd.d" \
 "main.d" \
@@ -76,6 +86,8 @@ C_DEPS__QUOTED += \
 C_SRCS__QUOTED += \
 "../WiFi.c" \
 "../button.c" \
+"../commands.c" \
+"../helpers.c" \
 "../ir.c" \
 "../lcd.c" \
 "../main.c" \

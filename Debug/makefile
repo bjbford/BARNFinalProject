@@ -12,6 +12,8 @@ GEN_CMDS__FLAG :=
 ORDERED_OBJS += \
 "./WiFi.obj" \
 "./button.obj" \
+"./commands.obj" \
+"./helpers.obj" \
 "./ir.obj" \
 "./lcd.obj" \
 "./main.obj" \
@@ -163,8 +165,8 @@ FinalProject.hex: $(EXE_OUTPUTS)
 # Other Targets
 clean:
 	-$(RM) $(BIN_OUTPUTS__QUOTED)$(EXE_OUTPUTS__QUOTED)
-	-$(RM) "WiFi.obj" "button.obj" "ir.obj" "lcd.obj" "main.obj" "open_interface.obj" "ping.obj" "servo.obj" "timer.obj" "tm4c123gh6pm_startup_ccs.obj" "uart.obj" 
-	-$(RM) "WiFi.d" "button.d" "ir.d" "lcd.d" "main.d" "open_interface.d" "ping.d" "servo.d" "timer.d" "tm4c123gh6pm_startup_ccs.d" "uart.d" 
+	-$(RM) "WiFi.obj" "button.obj" "commands.obj" "helpers.obj" "ir.obj" "lcd.obj" "main.obj" "open_interface.obj" "ping.obj" "servo.obj" "timer.obj" "tm4c123gh6pm_startup_ccs.obj" "uart.obj" 
+	-$(RM) "WiFi.d" "button.d" "commands.d" "helpers.d" "ir.d" "lcd.d" "main.d" "open_interface.d" "ping.d" "servo.d" "timer.d" "tm4c123gh6pm_startup_ccs.d" "uart.d" 
 	-@echo 'Finished clean'
 	-@echo ' '
 
