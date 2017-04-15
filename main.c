@@ -42,7 +42,7 @@ int main(void) {
 }
 
 /**
- *
+ *	Initializes all functions needed for Rover.
  */
 void init_All(){
 //	WiFi_start("password");
