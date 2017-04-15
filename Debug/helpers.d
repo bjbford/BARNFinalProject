@@ -9,6 +9,8 @@ helpers.obj: C:/ti/ccsv6/tools/compiler/ti-cgt-arm_15.12.1.LTS/include/stdio.h
 helpers.obj: C:/ti/ccsv6/tools/compiler/ti-cgt-arm_15.12.1.LTS/include/stdarg.h
 helpers.obj: ../helpers.h
 helpers.obj: C:/ti/TivaWare_C_Series-2.1.2.111/inc/tm4c123gh6pm.h
+helpers.obj: ../commands.h
+helpers.obj: C:/ti/ccsv6/tools/compiler/ti-cgt-arm_15.12.1.LTS/include/math.h
 helpers.obj: ../uart.h
 helpers.obj: C:/ti/ccsv6/tools/compiler/ti-cgt-arm_15.12.1.LTS/include/stdint.h
 
@@ -21,5 +23,7 @@ C:/ti/ccsv6/tools/compiler/ti-cgt-arm_15.12.1.LTS/include/stdio.h:
 C:/ti/ccsv6/tools/compiler/ti-cgt-arm_15.12.1.LTS/include/stdarg.h: 
 ../helpers.h: 
 C:/ti/TivaWare_C_Series-2.1.2.111/inc/tm4c123gh6pm.h: 
+../commands.h: 
+C:/ti/ccsv6/tools/compiler/ti-cgt-arm_15.12.1.LTS/include/math.h: 
 ../uart.h: 
 C:/ti/ccsv6/tools/compiler/ti-cgt-arm_15.12.1.LTS/include/stdint.h: 

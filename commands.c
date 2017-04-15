@@ -32,8 +32,11 @@ void sweep(){
 	int objectState = 0;		//BEGIN = 0, FIRSTDETECT = 1, STILLDETECTED = 2, NONE = 3
 
 	//Arrays to store Cartesian distance for Excel to be outputed to a .txt file.
-	float xCartesian[100] = {};
-	float yCartesian[100] = {};
+	float xCartesian[92] = {};
+	float yCartesian[92] = {};
+
+	//Data for each object detected to send over Putty (assumption that we max detect 6 objects)
+	struct object object_data[6];
 
 	for(degree=0; degree<=180; degree+=2){
 		move_servo(degree);	//move 2 degrees
@@ -64,32 +67,16 @@ void sweep(){
 			rawDist = 0.0;										//reset raw distance to be used for new object
 			objectIter = 0;
 
-			//calc. width of object, convert degrees to radians (degree*pi/180) for tanf() function
+			//calculate width of object, convert degrees to radians (degree*pi/180) for tanf() function
 			angWidth = 2 * actualDist * tanf((angSize*M_PI)/(2.0*180));
 
-			//Check for smallest object
-			/*
-			//first object seen, so set all variables for smallest object
-			if(objectCount == 1){
-				smallestWidth = angWidth;
-				smallestDist = actualDist;
-				smallestLocation = objectLocation;
-				smallestIndex = objectCount;
-				smallestSize = angSize;
-			}
-			//check for smallest object, and not first object seen
-			else if ((objectCount > 1) && (angWidth < smallestWidth)){
-				smallestWidth = angWidth;
-				smallestDist = actualDist;
-				smallestLocation = objectLocation;
-				smallestIndex = objectCount;
-				smallestSize = angSize;
-			}
-			*/
+			//Set detected object data
+			setObjectData(object_data,objectCount, angWidth, actualDist, objectLocation);
 		}
 		//Polar to Cartesian calculations for RadialPlot in excel
 		polar2Cart(degree, irDist, sonarDist, xCartesian, yCartesian);
 	}
-	//send Arrays to .txt file
-	txtOutput(xCartesian, yCartesian);
+	//send Arrays to Putty
+	arrayOutput(xCartesian, yCartesian);
+	objectDataOutput(object_data, objectCount);
 }

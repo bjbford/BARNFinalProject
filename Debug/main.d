@@ -25,6 +25,8 @@ main.obj: C:/ti/ccsv6/tools/compiler/ti-cgt-arm_15.12.1.LTS/include/string.h
 main.obj: ../ir.h
 main.obj: C:/ti/ccsv6/tools/compiler/ti-cgt-arm_15.12.1.LTS/include/stdio.h
 main.obj: ../button.h
+main.obj: ../commands.h
+main.obj: C:/ti/ccsv6/tools/compiler/ti-cgt-arm_15.12.1.LTS/include/math.h
 
 ../main.c: 
 C:/ti/ccsv6/tools/compiler/ti-cgt-arm_15.12.1.LTS/include/stdio.h: 
@@ -51,3 +53,5 @@ C:/ti/ccsv6/tools/compiler/ti-cgt-arm_15.12.1.LTS/include/string.h:
 ../ir.h: 
 C:/ti/ccsv6/tools/compiler/ti-cgt-arm_15.12.1.LTS/include/stdio.h: 
 ../button.h: 
+../commands.h: 
+C:/ti/ccsv6/tools/compiler/ti-cgt-arm_15.12.1.LTS/include/math.h: 
