@@ -8,6 +8,7 @@
 #include "lcd.h"
 #include "ir.h"
 #include "button.h"
+#include "commands.h"
 
 void init_All();
 
@@ -16,7 +17,7 @@ void init_All();
  */
 int main(void) {
 	init_All();
-	
+	sweep();
 	return 0;
 }
 
@@ -24,13 +25,19 @@ int main(void) {
  *	Initializes all functions needed for Rover.
  */
 void init_All(){
-	WiFi_start("password");
+	//WiFi_start("password");
+	//wait 10 seconds to get WiFi configured
+//	timer_waitMillis(10000);
 	uart_init();
+	//wait 5 seconds for putty to connect
+	//timer_waitMillis(5000);
 	lcd_init();
 	button_init();
 	ir_init();
 	ping_init();
 	servo_init();
-	oi_t *sensor_data = oi_alloc();
-	oi_init(sensor_data);
+	//wait one second for servo to reset to 0 degrees.
+	timer_waitMillis(1000);
+	//oi_t *sensor_data = oi_alloc();
+	//oi_init(sensor_data);
 }

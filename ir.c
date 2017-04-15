@@ -58,7 +58,7 @@ unsigned ir_read(){
 
 
 float ir_getDistance(){
-	int i = 0, increments = 250;
+	int i = 0, increments = 50;
 	isr_int_value = 0;
 	//Compute a running average of 250 samples and display that value
 	for(i=0;i<increments;i++){
