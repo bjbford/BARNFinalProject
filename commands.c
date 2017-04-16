@@ -91,11 +91,9 @@ void sweep(){
 	}
 	//send Arrays of x and y cartesian coordinates to Putty
 	arrayOutput(xCartesian, yCartesian);
-<<<<<<< HEAD
 	timer_waitMillis(2000);
-=======
 	arrayGridPutty(xCartesian, yCartesian);
->>>>>>> origin/master
+	timer_waitMillis(2000);
 	//send struct of object_data to Putty
 	objectDataOutput(object_data, objectCount);
 	//Reset servo to 0 degrees.
@@ -147,11 +145,7 @@ void move_roomba ()
 }
 
 void move_forward(oi_t *sensor, int centimeters){
-
-
-
     int sum = 0 ;
-    char str[15];
     while (sum < centimeters)
     {
 //        int flag = cliffWarning(sensor);
@@ -361,50 +355,7 @@ int checkCliff(oi_t *sensor)
     {
         cliff = 0 ;
     }
-
-
-
-
     return cliff ;
-
-}
-
-int cliffWarning(oi_t *sensor)
-{
-    int flag = 0 ;
-    oi_update(sensor) ;
-
-    if (checkCliff(sensor) == 1)
-    {
-        char* warning = "WARNING CLIFF ON LEFT SIDE! \n\r" ;
-        uart_sendStr(warning) ;
-        oi_setWheels(0,0) ;
-        flag = 1 ;
-    }
-    else if (checkCliff(sensor) ==2)
-    {
-        char* warning = "WARNING CLIFF ON RIGHT SIDE! \n\r" ;
-        uart_sendStr(warning) ;
-        oi_setWheels(0,0) ;
-        flag = 1 ;
-    }
-    else if (checkCliff(sensor) ==3)
-    {
-        char* warning = "WARNING CLIFF IN FRONT ON LEFT SIDE! \n\r" ;
-        uart_sendStr(warning) ;
-        oi_setWheels(0,0) ;
-        flag = 1 ;
-    }
-    else if (checkCliff(sensor) == 4)
-    {
-        char* warning = "WARNING CLIFF IN FRONT ON RIGHT SIDE \n\r" ;
-        uart_sendStr(warning) ;
-        oi_setWheels(0,0) ;
-        flag = 1 ;
-    }
-
-
-
 
 }
 
