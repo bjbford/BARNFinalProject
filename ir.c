@@ -58,9 +58,9 @@ unsigned ir_read(){
 
 
 float ir_getDistance(){
-	int i = 0, increments = 50;
+	int i = 0, increments = 250;
 	isr_int_value = 0;
-	//Compute a running average of 50 samples and display that value
+	//Compute a running average of 250 samples and display that value
 	for(i=0;i<increments;i++){
 		timer_waitMillis(1);	//samples every 1 millisecond
 		isr_int_value += ir_read();
@@ -68,4 +68,5 @@ float ir_getDistance(){
 	int quantNum = isr_int_value/increments;
 	//equation from excel y = 105375 x ^(-1.153) where y = distance (cm) and x = quantized value
 	float distance = 105375 * pow(quantNum,-1.153);
+	return distance;
 }

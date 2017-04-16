@@ -16,38 +16,29 @@
  */
 int main(void) {
 	init_All();
-<<<<<<< HEAD
 	sweep();
 	return 0;
-=======
+
 	
 
-	oi_t *sensor_data = oi_alloc() ;
-	oi_init(sensor_data) ;
-
-
-
-	while (1)
-	{
-	    move_roomba() ;
-	}
-
-
-
->>>>>>> origin/master
+//	oi_t *sensor_data = oi_alloc() ;
+//	oi_init(sensor_data) ;
+//
+//
+//
+//	while (1)
+//	{
+//	    move_roomba() ;
+//	}
 }
 
 /**
  *	Initializes all functions needed for Rover.
  */
 void init_All(){
-<<<<<<< HEAD
 	//WiFi_start("password");
 	//wait 10 seconds to get WiFi configured
-//	timer_waitMillis(10000);
-=======
-//	WiFi_start("password");
->>>>>>> origin/master
+	timer_waitMillis(10000);
 	uart_init();
 	//wait 5 seconds for putty to connect
 	//timer_waitMillis(5000);
@@ -56,15 +47,11 @@ void init_All(){
 	ir_init();
 	ping_init();
 	servo_init();
-<<<<<<< HEAD
 	//wait one second for servo to reset to 0 degrees.
 	timer_waitMillis(1000);
 	//oi_t *sensor_data = oi_alloc();
 	//oi_init(sensor_data);
-=======
-	oi_t *sensor_data = oi_alloc();
-	oi_init(sensor_data);
-
->>>>>>> origin/master
+	//oi_t *sensor_data = oi_alloc();
+	//oi_init(sensor_data);
 }
 

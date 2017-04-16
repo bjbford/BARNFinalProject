@@ -16,6 +16,7 @@
 void polar2Cart(int degree, float ir, float sonar, float *x, float *y);
 void setObjectData(struct object *object_data, int objectCount, float angWidth, float actualDist, int objectLocation);
 void arrayOutput(float *x, float *y);
+//void arrayGridPutty(float *x, float *y);
 void objectDataOutput(struct object *object_data, int objectCount);
 
 #endif /* HELPERS_H_ */

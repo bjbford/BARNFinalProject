@@ -116,6 +116,43 @@ void arrayOutput(float *x, float *y){
 	}
 }
 
+//void arrayGridPutty(float *x, float *y){
+//	int i = 0, j = 0;
+//	char map[1][200];
+//	//Final Y value to search for in cartesian array
+//	for(i=100; i >= 0; i--)
+//	{
+//		//Flushing row string after each row
+//		for(j = 0; j < 200; j++)
+//		{
+//			map[0][j] = ' ';
+//		}
+//		int abs_y = i;
+//		//Iterating through the y cartesian value to find match
+//		for(j = 0; j < 91; j++)
+//		{
+//			int tmp_y =  (int) roundf(y[j]);
+//			if(tmp_y < 0)
+//			{
+//				tmp_y = 0;
+//			}
+//			//If match found set character at x value found at that y value
+//			if(tmp_y == abs_y)
+//			{
+//				int abs_x = 100 + (int) roundf(x[j]);
+//
+//				map[0][abs_x] = 'X';
+//			}
+//		}
+//		//print row at end of search for matching y value
+//		int k=0;
+//		for(k=0; k < 200; k++)
+//		{
+//			uart_sendChar(map[0][k]);
+//		}
+//	}
+//}
+
 /**
  * Output info. from struct with object data to Putty.
  */
