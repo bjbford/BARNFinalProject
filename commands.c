@@ -89,7 +89,7 @@ void sweep(){
 	}
 	//send Arrays of x and y cartesian coordinates to Putty
 	arrayOutput(xCartesian, yCartesian);
-	//arrayGridPutty(xCartesian, yCartesian);
+	arrayGridPutty(xCartesian, yCartesian);
 	//send struct of object_data to Putty
 	objectDataOutput(object_data, objectCount);
 }
