@@ -32,12 +32,14 @@ void sweep(){
 	float angWidth = 0.0;		//actual angular width/linear size of object
 	int objectIter = 0;			//used to divide raw distance for average distance of an object
 
-//	//variables used for smallest object
-//	float smallestDist = 0.0, smallestWidth = 0.0;
-//	int smallestSize = 0, smallestIndex = 0.0, smallestLocation = 0;
-
-	//BEGINNING STATE - no object detected
-	int objectState = 0;		//BEGIN = 0, FIRSTDETECT = 1, STILLDETECTED = 2, NONE = 3
+	/**
+	 * Object States:
+	 * 0 = BEGIN - no objects have been detected.
+	 * 1 = FIRSTDETECT - object has been detected for the first time.
+	 * 2 = STILL DETECTED - object still detected (not first time seeing it).
+	 * 3 = NONE - object was detected at some point, but no longer visible.
+	 */
+	int objectState = 0;
 
 	//Arrays to store Cartesian distance for Excel to be outputed to a .txt file.
 	float xCartesian[92] = {};
@@ -54,7 +56,7 @@ void sweep(){
 		//IR object detection (< 100 cm) and first glimpse of an object
 		if((irDist < 100.0) && (sonarDist < 100.0) && (objectState == 0 || objectState == 3)){
 			//object has been detected for first time
-			objectState = 1;				//FIRSTDETECT
+			objectState = 1;
 			beginDegree = degree;
 			rawDist += sonarDist;
 			objectIter++;
@@ -62,30 +64,32 @@ void sweep(){
 		}
 		else if((irDist < 100.0) && (sonarDist < 100.0) && (objectState == 1)){
 			//object still detected (not first time seeing it)
-			objectState = 2;				//STILLDETECTED
+			objectState = 2;
 			rawDist += sonarDist;
 			objectIter++;
 		}
 		//object was detected at some point, but not visable anymore
 		else if((objectState == 2) && ((irDist > 100.0) || (sonarDist > 100.0))){
-			objectState = 3;									//NONE - object not visable anymore
+			//NONE - object not visable anymore
+			objectState = 3;
 			objectLocation = ((degree-2) + beginDegree) / 2; 	//location of object in degrees (endingDegree - beginningDegree)/2
 			angSize = (degree-2) - beginDegree;					//angular size of object
 			actualDist = (rawDist/((float) objectIter));		//actual or averaged sensor distance away from object
 			rawDist = 0.0;										//reset raw distance to be used for new object
-			objectIter = 0;
+			objectIter = 0;										//reset iterator to be used for new object
 
 			//calculate width of object, convert degrees to radians (degree*pi/180) for tanf() function
 			angWidth = 2 * actualDist * tanf((angSize*M_PI)/(2.0*180));
 
 			//Set detected object data
-			setObjectData(object_data,objectCount, angWidth, actualDist, objectLocation);
+			setObjectData(object_data, objectCount, angWidth, actualDist, objectLocation);
 		}
 		//Polar to Cartesian calculations for RadialPlot in excel
 		polar2Cart(degree, irDist, sonarDist, xCartesian, yCartesian);
 	}
-	//send Arrays to Putty
+	//send Arrays of x and y cartesian coordinates to Putty
 	arrayOutput(xCartesian, yCartesian);
+	//send struct of object_data to Putty
 	objectDataOutput(object_data, objectCount);
 }
 
@@ -286,12 +290,6 @@ void turn_clockwise(oi_t *sensor, int degrees){
     timer_waitMillis(degrees*22);
     oi_setWheels(0, 0); //stop wheels
     oi_free(sensor) ;
-}
-
-
-void scan()
-{
-
 }
 
 int checkBumper(oi_t *sensor)
