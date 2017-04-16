@@ -53,6 +53,8 @@ void sweep(){
 		float irDist = ir_getDistance();
 		float sonarDist = ping_getDistance();
 
+		lcd_printf("Object State: %d\nIR (cm): %.1f\nSonar (cm): %.1f\nObject Count: %d",objectState, irDist, sonarDist, objectCount);
+
 		//IR object detection (< 100 cm) and first glimpse of an object
 		if((irDist < 100.0) && (sonarDist < 100.0) && (objectState == 0 || objectState == 3)){
 			//object has been detected for first time
@@ -89,9 +91,11 @@ void sweep(){
 	}
 	//send Arrays of x and y cartesian coordinates to Putty
 	arrayOutput(xCartesian, yCartesian);
-	//arrayGridPutty(xCartesian, yCartesian);
+	timer_waitMillis(2000);
 	//send struct of object_data to Putty
 	objectDataOutput(object_data, objectCount);
+	//Reset servo to 0 degrees.
+	move_servo(0);
 }
 
 /**
