@@ -1,7 +1,7 @@
 ******************************************************************************
                   TI ARM Linker PC v15.12.1                    
 ******************************************************************************
->> Linked Mon Apr 10 17:49:38 2017
+>> Linked Wed Apr 12 16:50:53 2017
 
 OUTPUT FILE NAME:   <FinalProject.out>
 ENTRY POINT SYMBOL: "_c_int00"  address: 00004481
@@ -162,13 +162,14 @@ MODULE SUMMARY
        lcd.obj                        764     8         84     
        tm4c123gh6pm_startup_ccs.obj   12      620       0      
        ping.obj                       536     0         0      
-       ir.obj                         372     0         4      
+       ir.obj                         372     0         0      
        servo.obj                      368     0         0      
        timer.obj                      344     0         0      
        uart.obj                       296     0         0      
        button.obj                     292     0         2      
        WiFi.obj                       108     0         0      
-       main.obj                       66      0         17     
+       main.obj                       66      0         0      
+       commands.obj                   0       0         21     
     +--+------------------------------+-------+---------+---------+
        Total:                         5874    643       147    
                                                                
