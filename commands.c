@@ -91,7 +91,11 @@ void sweep(){
 	}
 	//send Arrays of x and y cartesian coordinates to Putty
 	arrayOutput(xCartesian, yCartesian);
+<<<<<<< HEAD
 	timer_waitMillis(2000);
+=======
+	arrayGridPutty(xCartesian, yCartesian);
+>>>>>>> origin/master
 	//send struct of object_data to Putty
 	objectDataOutput(object_data, objectCount);
 	//Reset servo to 0 degrees.
