@@ -35,6 +35,14 @@ void setObjectData(struct object *object_data, int objectCount, float angWidth, 
 	int i=0;
 	//Detected object data
 	switch(objectCount){
+	//Default case, no objected detected. Array initialized to 0.
+	case 0:
+        for(i=0;i<6;i++){
+            object_data[i].width = 0.0;
+            object_data[i].distance = 0.0;
+            object_data[i].count = 0;
+            object_data[i].location = 0;
+        }
 	//first object detected
 	case 1:
 		object_data[(objectCount-1)].width = angWidth;
@@ -63,28 +71,20 @@ void setObjectData(struct object *object_data, int objectCount, float angWidth, 
 		object_data[(objectCount-1)].count = objectCount;
 		object_data[(objectCount-1)].location = objectLocation;
 	break;
-	//fourth object detected
+	//fifth object detected
 	case 5:
 		object_data[(objectCount-1)].width = angWidth;
 		object_data[(objectCount-1)].distance = actualDist;
 		object_data[(objectCount-1)].count = objectCount;
 		object_data[(objectCount-1)].location = objectLocation;
 	break;
-	//fourth object detected
+	//sixth object detected
 	case 6:
 		object_data[(objectCount-1)].width = angWidth;
 		object_data[(objectCount-1)].distance = actualDist;
 		object_data[(objectCount-1)].count = objectCount;
 		object_data[(objectCount-1)].location = objectLocation;
 	break;
-	//Default case, no objected detected. Array initialized to 0.
-	default:
-		for(i=0;i<6;i++){
-			object_data[i].width = 0.0;
-			object_data[i].distance = 0.0;
-			object_data[i].count = 0;
-			object_data[i].location = 0;
-		}
 	}
 }
 
@@ -159,33 +159,33 @@ void arrayGridPutty(float *x, float *y){
  * Output info. from struct with object data to Putty.
  */
 void objectDataOutput(struct object *object_data, int objectCount){
-	char string[] = {};
-	sprintf(string, "\r\n%d: Objects detected!\r\n", objectCount);
-	uart_sendStr(string);
+//	char string[] = {};
+//	sprintf(string, "\r\n%d: Objects detected!\r\n", objectCount);
+//	uart_sendStr(string);
 	int i=0;
 	for(i=0;i<objectCount;i++){
 		//Output location
-		char locString[] = {};
-		sprintf(locString, "Object %d location: ", object_data[i].count);
-		uart_sendStr(locString);
+//		char locString[] = {};
+//		sprintf(locString, "Object %d location: ", object_data[i].count);
+//		uart_sendStr(locString);
 		char locationBuff[4] = "\0";
 		snprintf(locationBuff,4,"%d",object_data[i].location);
 		uart_sendStr(locationBuff);
 		uart_sendStr("\r\n");
 
 		//Output distance
-		char distString[] = {};
-		sprintf(distString, "Object %d distance: ", object_data[i].count);
-		uart_sendStr(distString);
+//		char distString[] = {};
+//		sprintf(distString, "Object %d distance: ", object_data[i].count);
+//		uart_sendStr(distString);
 		char distanceBuff[50] = "\0";
 		snprintf(distanceBuff,50,"%.2f",object_data[i].distance);
 		uart_sendStr(distanceBuff);
 		uart_sendStr("\r\n");
 
 		//Output width
-		char widthString[] = {};
-		sprintf(widthString, "Object %d width: ", object_data[i].count);
-		uart_sendStr(widthString);
+//		char widthString[] = {};
+//		sprintf(widthString, "Object %d width: ", object_data[i].count);
+//		uart_sendStr(widthString);
 		char widthBuff[50] = "\0";
 		snprintf(widthBuff,50,"%.2f",object_data[i].width);
 		uart_sendStr(widthBuff);

@@ -88,10 +88,12 @@ void sweep(){
 		polar2Cart(degree, irDist, sonarDist, xCartesian, yCartesian);
 	}
 	//send Arrays of x and y cartesian coordinates to Putty
-	arrayOutput(xCartesian, yCartesian);
+	//arrayOutput(xCartesian, yCartesian);
 	arrayGridPutty(xCartesian, yCartesian);
+	timer_waitMillis(2000);
 	//send struct of object_data to Putty
 	objectDataOutput(object_data, objectCount);
+	move_servo(0);
 }
 
 /**
