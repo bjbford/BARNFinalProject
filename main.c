@@ -16,7 +16,7 @@
  */
 int main(void) {
 	init_All();
-
+	sweep();
 
 	
 //	oi_t *sensor_data = oi_alloc() ;
@@ -24,10 +24,10 @@ int main(void) {
 //
 //
 //
-	while (1)
-	{
-	    move_roomba() ;
-	}
+//	while (1)
+//	{
+//	    move_roomba() ;
+//	}
 }
 
 /**
