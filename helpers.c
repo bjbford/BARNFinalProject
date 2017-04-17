@@ -159,33 +159,33 @@ void arrayGridPutty(float *x, float *y){
  * Output info. from struct with object data to Putty.
  */
 void objectDataOutput(struct object *object_data, int objectCount){
-//	char string[] = {};
-//	sprintf(string, "\r\n%d: Objects detected!\r\n", objectCount);
-//	uart_sendStr(string);
+	char string[30];
+	sprintf(string, "\r\n%d: Objects detected!\r\n", objectCount);
+	uart_sendStr(string);
 	int i=0;
 	for(i=0;i<objectCount;i++){
 		//Output location
-//		char locString[] = {};
-//		sprintf(locString, "Object %d location: ", object_data[i].count);
-//		uart_sendStr(locString);
+		char locString[25];
+		sprintf(locString, "Object %d location: ", object_data[i].count);
+		uart_sendStr(locString);
 		char locationBuff[4] = "\0";
 		snprintf(locationBuff,4,"%d",object_data[i].location);
 		uart_sendStr(locationBuff);
 		uart_sendStr("\r\n");
 
 		//Output distance
-//		char distString[] = {};
-//		sprintf(distString, "Object %d distance: ", object_data[i].count);
-//		uart_sendStr(distString);
+		char distString[25];
+		sprintf(distString, "Object %d distance: ", object_data[i].count);
+		uart_sendStr(distString);
 		char distanceBuff[50] = "\0";
 		snprintf(distanceBuff,50,"%.2f",object_data[i].distance);
 		uart_sendStr(distanceBuff);
 		uart_sendStr("\r\n");
 
 		//Output width
-//		char widthString[] = {};
-//		sprintf(widthString, "Object %d width: ", object_data[i].count);
-//		uart_sendStr(widthString);
+		char widthString[25];
+		sprintf(widthString, "Object %d width: ", object_data[i].count);
+		uart_sendStr(widthString);
 		char widthBuff[50] = "\0";
 		snprintf(widthBuff,50,"%.2f",object_data[i].width);
 		uart_sendStr(widthBuff);

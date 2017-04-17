@@ -28,7 +28,6 @@ commands.obj: C:/ti/TivaWare_C_Series-2.1.2.111/driverlib/interrupt.h
 commands.obj: ../ir.h
 commands.obj: C:/ti/ccsv6/tools/compiler/ti-cgt-arm_15.12.1.LTS/include/stdio.h
 commands.obj: ../button.h
-commands.obj: C:/ti/ccsv6/tools/compiler/ti-cgt-arm_15.12.1.LTS/include/stdio.h
 
 ../commands.c: 
 ../helpers.h: 
@@ -58,4 +57,3 @@ C:/ti/TivaWare_C_Series-2.1.2.111/driverlib/interrupt.h:
 ../ir.h: 
 C:/ti/ccsv6/tools/compiler/ti-cgt-arm_15.12.1.LTS/include/stdio.h: 
 ../button.h: 
-C:/ti/ccsv6/tools/compiler/ti-cgt-arm_15.12.1.LTS/include/stdio.h: 
