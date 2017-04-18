@@ -54,6 +54,7 @@ void sweep(){
 
 	for(degree=0; degree<=180; degree+=2){
 		move_servo(degree);	//move 2 degrees
+		timer_waitMillis(10);
 		float irDist = ir_getDistance();
 		float sonarDist = ping_getDistance();
 
@@ -127,6 +128,7 @@ void sweep(){
 	//send struct of object_data to Putty
 	objectDataOutput(object_data, objectCount);
 	move_servo(0);
+	timer_waitMillis(1000);
 }
 
 /**
@@ -141,33 +143,43 @@ void move_roomba ()
 //        scanf("%c", &input) ;
         input = uart_receive();
         //forwards
-        if (input == 'u')
+        if (input == 0x31)
         {
+            char moveForward[] = "Moving Forward\r\n" ;
+            uart_sendStr(moveForward);
             move_forward(sensor_data, 25); //move forward
 
         }
         //backwards
-        else if (input == 'b')
+        else if (input == 0x32)
         {
+            char moveBackwards[] = "Moving Backwards\r\n" ;
+            uart_sendStr(moveBackwards) ;
             move_backwards(sensor_data, -100); //backwards
         }
 
         //rotates clockwise
-        else if (input == 'd')
+        else if (input == 0x33)
         {
+            char turnRight[] = "Rotating Clockwise 10 degrees\r\n" ;
+            uart_sendStr(turnRight);
             turn_clockwise(sensor_data, 5) ;//rotate 90 degrees
 
         }
 
         //rotates counterclockwise
-        else if (input == 'a')
+        else if (input == 0x34)
         {
+            char turnLeft[] = "Rotating CountClockwise 10 degrees\r\n" ;
+            uart_sendStr(turnLeft) ;
             turn_counterClockwise(sensor_data, 5) ;
         }
 
         //scan surroundings
-        else if (input == 'p')
+        else if (input == 0x35)
         {
+            char scanning[] = "Scanning..... please wait......\r\n" ;
+            uart_sendStr(scanning);
             sweep() ;
         }
         oi_free(sensor_data) ;
@@ -192,6 +204,45 @@ void move_forward(oi_t *sensor, int centimeters){
         oi_setWheels(75,75) ; //move forward
         oi_update(sensor);
         sum += sensor->distance;
+
+
+
+//        char string[16] ;
+//        sprintf(string, "%d\r\n", frontRightSignal) ;
+//        uart_sendStr(string) ;
+
+
+        if(leftSignal < 1200)
+               {
+                   char* warning = "Finish is on Left Side! \n\r" ;
+                   uart_sendStr(warning);
+
+               }
+       //        sprintf(str, "%d\n\r", rightSignal);
+       //        uart_sendStr(str);
+               if(rightSignal < 1200)
+               {
+                   char* warning = "Finish is on RIGHT side! \n\r" ;
+                   uart_sendStr(warning);
+
+               }
+               if(frontLeftSignal < 1200)
+               {
+                   char* warning = "Finish is on Front Left side! \n\r" ;
+                   uart_sendStr(warning);
+
+               }
+               if(frontRightSignal < 1200)
+               {
+                   char* warning = "Finish is on Front Right side! \n\r" ;
+                   uart_sendStr(warning);
+
+               }
+
+
+
+
+
         if(leftSignal > 2500)
         {
             char* warning = "White Line on Left Side! \n\r" ;
@@ -231,11 +282,39 @@ void move_forward(oi_t *sensor, int centimeters){
         }
         if (checkBumper(sensor) == 2)
         {
-            char* warning = "Hit left bumper! \n\r" ;
+            char* warning = "Hit front right bumper! \n\r" ;
             uart_sendStr(warning) ;
             oi_setWheels(0,0);
             break ;
         }
+        if (checkBumper(sensor) == 3)
+        {
+                    char* warning = "Hit center right bumper! \n\r" ;
+                    uart_sendStr(warning);
+                    oi_setWheels(0,0);
+                    break ;
+                }
+        if (checkBumper(sensor) == 4)
+                {
+                    char* warning = "Hit center left bumper! \n\r" ;
+                    uart_sendStr(warning);
+                    oi_setWheels(0,0);
+                    break ;
+                }
+        if (checkBumper(sensor) == 5)
+                {
+                    char* warning = "Hit front left bumper! \n\r" ;
+                    uart_sendStr(warning);
+                    oi_setWheels(0,0);
+                    break ;
+                }
+        if (checkBumper(sensor) == 6)
+                {
+                    char* warning = "Hit left bumper! \n\r" ;
+                    uart_sendStr(warning);
+                    oi_setWheels(0,0);
+                    break ;
+                }
         if (checkCliff(sensor) == 1)
         {
             char* warning = "WARNING CLIFF ON LEFT SIDE! \n\r" ;
@@ -331,15 +410,35 @@ int checkBumper(oi_t *sensor)
 {
     //bumper = 0 no bumps
     //bumper = 1 right bumper
-    //bumper = 2 left bumper
+    //bumper = 2 front right bumper
+    //bumper = 3 center right bumper
+    //bumper = 4 center left bumper
+    //bumper = 5 front left bumper
+    //bumper = 6 left bumper
     int bumper = 0 ;
 
     oi_update(sensor) ;
-    if (sensor-> bumpLeft)
+    if (sensor-> lightBumperLeft)
+    {
+        bumper = 6 ;
+    }
+    else if (sensor-> lightBumperFrontLeft)
+    {
+        bumper = 5 ;
+    }
+    else if (sensor-> lightBumperCenterLeft)
         {
-        bumper = 2 ;
+            bumper = 4 ;
         }
-    else if (sensor-> bumpRight)
+    else if (sensor-> lightBumperCenterRight)
+    {
+        bumper = 3 ;
+    }
+    else if (sensor-> lightBumperFrontRight)
+    {
+        bumper = 2 ;
+    }
+    else if (sensor-> lightBumperRight)
     {
         bumper = 1 ;
     }
@@ -393,40 +492,4 @@ int checkCliff(oi_t *sensor)
 
     return cliff ;
 
-}
-
-int cliffWarning(oi_t *sensor)
-{
-    int flag = 0 ;
-    oi_update(sensor) ;
-
-    if (checkCliff(sensor) == 1)
-    {
-        char* warning = "WARNING CLIFF ON LEFT SIDE! \n\r" ;
-        uart_sendStr(warning) ;
-        oi_setWheels(0,0) ;
-        flag = 1 ;
-    }
-    else if (checkCliff(sensor) ==2)
-    {
-        char* warning = "WARNING CLIFF ON RIGHT SIDE! \n\r" ;
-        uart_sendStr(warning) ;
-        oi_setWheels(0,0) ;
-        flag = 1 ;
-    }
-    else if (checkCliff(sensor) ==3)
-    {
-        char* warning = "WARNING CLIFF IN FRONT ON LEFT SIDE! \n\r" ;
-        uart_sendStr(warning) ;
-        oi_setWheels(0,0) ;
-        flag = 1 ;
-    }
-    else if (checkCliff(sensor) == 4)
-    {
-        char* warning = "WARNING CLIFF IN FRONT ON RIGHT SIDE \n\r" ;
-        uart_sendStr(warning) ;
-        oi_setWheels(0,0) ;
-        flag = 1 ;
-    }
-    return flag;
 }

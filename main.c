@@ -34,9 +34,9 @@ int main(void) {
  *	Initializes all functions needed for Rover.
  */
 void init_All(){
-//WiFi_start("password");
+    //WiFi_start("password");
 	//wait 10 seconds to get WiFi configured
-	timer_waitMillis(10000);
+	timer_waitMillis(20000);
 	uart_init();
 	//wait 5 seconds for putty to connect
 	//timer_waitMillis(5000);

@@ -38,5 +38,5 @@ void move_servo(int degree){
 	TIMER1_TBMATCHR_R = ((320000 - pulse_width) & 0xFFFF);	//set lower 16 bits of pulse width
 	TIMER1_TBPMR_R |= ((320000 - pulse_width) >> 16);	//set the upper 8 bits of the pulse width
 	//Delay for the servo to move to the position
-	timer_waitMillis(100);
+	timer_waitMillis(50);
 }
