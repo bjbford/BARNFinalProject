@@ -21,7 +21,7 @@ struct object{
 	int location;
 };
 
-void sweep();
+void scan();
 void init_All();
 void move_roomba();
 void move_forward(oi_t *sensor, int centimeters);

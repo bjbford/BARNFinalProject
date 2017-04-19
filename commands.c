@@ -20,10 +20,10 @@
 #include "commands.h"
 
 /**
- * Sweep with both the Ping sensor and IR distance sensor over the 180 degree range of the servo,
+ * Scan with both the Ping sensor and IR distance sensor over the 180 degree range of the servo,
  * taking distance measurements from both sensors every 2 degrees and transmitting the data over WiFi to Putty.
  */
-void sweep(){
+void scan(){
 	int degree=0, beginDegree = 0, angSize = 0;
 	int objectLocation = 0;		//location of object in degrees
 	int objectCount = 0;		//total count of object

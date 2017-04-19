@@ -62,7 +62,7 @@ float ir_getDistance(){
 	isr_int_value = 0;
 	//Compute a running average of 100 samples and display that value
 	for(i=0;i<increments;i++){
-		timer_waitMicros(500);	//samples every 1 millisecond
+		timer_waitMicros(500);	//samples every .5 millisecond
 		isr_int_value += ir_read();
 	}
 	int quantNum = isr_int_value/increments;

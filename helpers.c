@@ -116,6 +116,10 @@ void arrayOutput(float *x, float *y){
     }
 }
 
+/*
+ * Print a 2D array with xCartesian coordinates from -100 to 100 and yCartesian from 0 to 100.
+ * 2D array represents objects shown from sweep() function on Putty.
+ */
 void arrayGridPutty(float *x, float *y){
     int i = 0, j = 0;
     char map[1][200];
@@ -185,6 +189,7 @@ void objectDataOutput(struct object *object_data, int objectCount){
         uart_sendStr(widthBuff);
         uart_sendStr("\r\n\r\n");
 
+        //Output finish line detection
         if(object_data[i].width < 6.0){
         	uart_sendStr("Finish marker detected!!\r\n\r\n");
         }
