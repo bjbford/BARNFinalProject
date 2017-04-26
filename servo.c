@@ -1,5 +1,5 @@
 /**
-*	@file servo.h
+*	@file servo.c
 *	@brief This file contains the methods necessary to operate the servo.
 *	@author	Brian Bradford, Rajiv Bhoopala, Andrew Thai, Nick Knuth
 *	@date 3/8/2017

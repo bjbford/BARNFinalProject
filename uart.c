@@ -1,5 +1,5 @@
 /**
-*	@file uart.h
+*	@file uart.c
 *	@brief This file contains all the methods to communicate between the robot and the computer.
 * 	@author	Brian Bradford, Rajiv Bhoopala, Andrew Thai, Nick Knuth
 *	@date 2/15/2017

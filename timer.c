@@ -1,5 +1,5 @@
 /**
-*	@file Timer.h
+*	@file Timer.c
 *	@brief This file contains the methods to operate system timers.
 *	@author	ericm
 *	@date 3/3/2016

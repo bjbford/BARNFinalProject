@@ -1,5 +1,5 @@
 /**
-*	@file WiFi.h
+*	@file WiFi.c
 *	@brief This file contains all of the methods necessary to operate the WiFi.
 *  	@author	Brian Bradford, Rajiv Bhoopala, Andrew Thai, Nick Knuth
 *   @date 2/15/2017

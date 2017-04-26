@@ -1,5 +1,5 @@
 /**
-*	@file ping.h
+*	@file ping.c
 *	@brief This file contains the methods necessary to operate and collect data from the ping sensor.
 *	@author Brian Bradford, Rajiv Bhoopala, Andrew Thai, Nick Knuth
 *	@date 3/1/2017
