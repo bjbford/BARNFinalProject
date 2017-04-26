@@ -5,3 +5,54 @@
 * Andrew Thai: athai@iastate.edu
 * Rajiv Bhoopala: rajiv@iastate.edu
 * Nick Knuth: njknuth@iastate.edu
+
+#Story
+Briefing: VORTEX, the code name for your development platform, includes the iRobot Create, the Cerebot
+II board, and attachments such as the servo, SONAR, IR sensor, and LCD.
+Your team has been asked to develop an interplanetary rover using the VORTEX platform. Both NASA
+and the European Space Agency have heard about your work with this platform and have assigned your
+team the job of designing the rover. Delegating this task will allow these agencies to focus on developing
+a launch vehicle. The primary task of the rover is retrieval; other international teams are busy working
+on a package that will collect rock samples and perform analysis. The VORTEX platform will be landing in
+Martian terrain that is unknown to you. The only knowledge of the terrain you will have is that which
+the VORTEX transmits to you.
+At this early phase of the project, the only objective for you to complete is for the VORTEX platform to
+traverse the hazardous terrain for retrieval at a predetermined rendezvous site.
+The terrain is hazardous, so the VORTEX must be capable of navigating the hazards of the terrain. The
+retrieval zone will be marked, so you will be able to recognize it from the information the VORTEX sends
+you. After the VORTEX enters the retrieval zone, it should send signals to mission control indicating the
+rover is ready for retrieval.
+
+#Project Description
+The VORTEX platform will be placed at a random position in the test field. The rover should traverse
+through several hazards to position itself within the retrieval zone. This project is composed of three
+sub goals defined in the following sections.
+Because of differences in the atmosphere where the VORTEX will be used, there are areas where solar
+radiation could damage the VORTEX. In the test course these areas are marked off by white tape. Your
+rover should not to cross white tape. For the purpose of this test you can assume that the test course
+will be completely surrounded by white tape. The iRobot Create platform has a sensor that can sense
+when it crosses into the irradiated areas (see the oi_t struct related to the cliff sensor). Your team will
+lose points for each complete crossing. If the VORTEX platform completely leaves the test course, it will
+be physically placed back into the field perpendicular it where it went out.
+Mission control needs to be able to process the information that the VORTEX platform sends to it. You
+should format the information appropriately so that it can be understood by the operator. It is up to you
+to decide what information the VORTEX platform will send you. Whatever information you choose to
+send it should be enough to navigate the test course. All information should be transmitted to the
+Mission Control via Bluetooth.
+The Mission Control also needs to be capable of controlling the robot remotely. The amount of control
+that you give to the Mission Control is up to you. At minimum, the Mission Control should be able to:
+* Send a signal to initiate the VORTEX at the start of the test.
+* Send a signal to put the VORTEX in standby when it has reached the retrieval zone.
+* Send a signal to identify that the retrieval zone has been found and ready the robot for positioning in the zone.
+* Control the basic movement of the robot.
+* Control the sensors of the robot.
+
+Any command sent from the Mission Control will be considered a high priority command. This means
+that it will be fully executed before the VORTEX continues any of its normal routines.
+However, you should assume that some sensors take higher priority. The priority of commands will be
+detailed later.
+Beyond Mission Control being able to control the VORTEX, you may also want to consider giving the
+vortex some decision making capability. All commands will be sent to the VORTEX via Bluetooth.
+It is strongly recommended that each team look carefully at the evaluation form and the supplementary
+specifications as they strategize and plan. Once the maximum point reduction has been reached for a
+penalty category, no further point reduction will occur for that penalty category.
