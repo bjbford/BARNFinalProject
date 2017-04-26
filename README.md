@@ -1,4 +1,5 @@
 ## CprE 288 Embedded Systems Final Project: Mars Rover (Spring 2017)
+http://class.ece.iastate.edu/cpre288/ 
 # BARNFinalProject
 
 * Brian Bradford: bjbford@iastate.edu
