@@ -1,3 +1,12 @@
+/**
+*  	@file main.c
+*  	@brief this file will contains the main for the Roomba to navigate the obstacle course.
+*
+*	@author	Brian Bradford, Nick Knuth, Andrew Thai, and Rajiv Bhoopala
+*
+*  	@date	4/12/2017
+*/
+
 #include <stdio.h>
 #include "WiFi.h"
 #include "uart.h"
@@ -11,33 +20,29 @@
 #include "commands.h"
 
 
-/*
- * main.c
- */
+/**
+*	Infinite loop for Roomba to navigate with GUI instructions for Putty.
+*	@author	Brian Bradford, Nick Knuth, Andrew Thai, and Rajiv Bhoopala
+*	@date	4/12/2017
+*/
 int main(void) {
 	init_All();
 
-
-	
-//	oi_t *sensor_data = oi_alloc() ;
-//	oi_init(sensor_data) ;
-//
-//
-//
-
 	char instructions[] = "Welcome to roomba obstacle course! \r\nMove forward = up on dpad\r\nMove backwards = down on dpad\r\nRotate clockwise = right on dpad\r\n Rotate counterclock = left on dpad\r\nScan = X\r\n Song = Triangle\r\n";
-	        uart_sendStr(instructions);
+	uart_sendStr(instructions);
 	while (1)
 	{
-	    move_roomba() ;
+	    move_roomba();
 	}
 }
 
 /**
- *	Initializes all functions needed for Rover.
- */
+*	This method initializes all functions needed for Rover.
+*	@author	Brian Bradford, Nick Knuth, Andrew Thai, and Rajiv Bhoopala
+*	@date	4/12/2017
+*/
 void init_All(){
-//WiFi_start("password");
+	//WiFi_start("password");
 	//wait 10 seconds to get WiFi configured
 	//timer_waitMillis(10000);
 	uart_init();

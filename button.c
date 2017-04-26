@@ -1,9 +1,10 @@
-/*
- * button.c
- *
- *  Created on: Jul 18, 2016
- *      Author: Eric Middleton, Zhao Zhang, Chad Nelson, & Zachary Glanz.
- */
+/**
+*	@file button.c
+*	@brief this file contains all basic button functions.
+*
+*	@author Eric Middleton
+*	@date 7/18/2016
+*/
 
 //The buttons are on PORTE 0:5
 #include "button.h"
@@ -19,11 +20,13 @@
 
 #define BUTTON_PORT		GPIO_PORTE_DATA_R
 
-static uint8_t _prevButton = 0; //must be set yourself in button_getButton()
+static uint8_t _prevButton = 0;
 
 /**
- * Initialize PORTE and configure bits 5-0 to be used as inputs.
- */
+*	Initialize PORTE and configure bits 5-0 to be used as inputs.
+*	@author Eric Middleton
+*	@date 7/18/2016
+*/
 void button_init() {
 	static uint8_t initialized = 0;
 
@@ -42,19 +45,22 @@ void button_init() {
 }
 
 /**
- * returns a 6-bit bit field, representing the push buttons. A 1 means the corresponding button is pressed.
- */
+* 	This method returns a 6-bit bit field, representing the push buttons,
+* 	a 1 means the corresponding button is pressed.
+*	@author Eric Middleton
+*	@date 7/18/2016
+*/
 uint8_t button_checkButtons() {
 	return (~BUTTON_PORT) & (BIT6 - 1); //Return the button status
 }
 
 /**
- * Returns the position of the leftmost button being pushed.
- * @return the position of the leftmost button being pushed. A 6 is the leftmost button, 1 is the rightmost button.  0 indicates no button being pressed
- */
+*	This method returns the position of the leftmost button being pushed,
+*	a 6 is the leftmost button, 1 is the rightmost button.
+*	@author Eric Middleton
+*	@date 7/18/2016
+*/
 uint8_t button_getButton() {
-
-//	#warning "Unimplemented function: uint8_t button_getButton(void)"	// delete warning after implementing
 
 	//
 	// DELETE ME - How bitmasking works
@@ -119,6 +125,11 @@ uint8_t button_getButton() {
 	}
 }
 
+/**
+*	This method returns highest button pressed, waits until at least one is pressed.
+*	@author Eric Middleton
+*	@date 7/18/2016
+*/
 uint8_t button_getButtonBlocking() {
 	uint8_t button;
 
@@ -128,7 +139,11 @@ uint8_t button_getButtonBlocking() {
 	return button;
 }
 
-
+/**
+*	This method debounces the button and returns button press.
+*	@author Eric Middleton
+*	@date 7/18/2016
+*/
 int8_t button_getButtonChange() {
 	uint8_t lastButton = _prevButton; //_prevButton can be set in button_getButton if you want to use this function.
 	int8_t curButton = button_getButton();
@@ -141,6 +156,11 @@ int8_t button_getButtonChange() {
 	}
 }
 
+/**
+*	This method blocks the button and returns debounces button press.
+*	@author Eric Middleton
+*	@date 7/18/2016
+*/
 int8_t button_getButtonChangeBlocking() {
 	int8_t button;
 

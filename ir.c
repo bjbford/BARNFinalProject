@@ -1,14 +1,21 @@
-/*
- * ir.c:
- *
- *  Created on: 2-22-17
- *      Author: Brian Bradford and Rajiv Bhoopala
- */
+/**
+*  @file ir.c
+*  @brief this file will contain all basic ir functions.
+*
+*  @author	Brian Bradford, Nick Knuth, Andrew Thai, and Rajiv Bhoopala
+*
+*  @date	2/22/2017
+*/
 
 #include "ir.h"
 #include "timer.h"
 #include <math.h>
 
+/**
+* 	This method initializes and sets up ADC and raw interrupt polling for ir.
+* 	@author	Brian Bradford, Nick Knuth, Andrew Thai, and Rajiv Bhoopala
+* 	@date	2/22/2017
+*/
 void ir_init()
 {
 	//enable ADC 0 module on port D
@@ -40,6 +47,11 @@ void ir_init()
 	ADC0_ACTSS_R |= ADC_ACTSS_ASEN1;
 }
 
+/**
+* 	This method using polling to grab ir data from FIFO register.
+* 	@author	Brian Bradford, Nick Knuth, Andrew Thai, and Rajiv Bhoopala
+* 	@date	2/22/2017
+*/
 unsigned ir_read(){
 	//disable ADC0SS1 sample sequencer to configure it
 	ADC0_ACTSS_R &= ~ADC_ACTSS_ASEN1;
@@ -56,7 +68,11 @@ unsigned ir_read(){
 	return ADC0_SSFIFO1_R;
 }
 
-
+/**
+* 	This method returns an average ir distance from 100 samples.
+* 	@author	Brian Bradford, Nick Knuth, Andrew Thai, and Rajiv Bhoopala
+* 	@date	2/22/2017
+*/
 float ir_getDistance(){
 	int i = 0, increments = 100;
 	isr_int_value = 0;

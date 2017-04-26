@@ -1,15 +1,12 @@
-/*
- * open_interface.h
- *
- * Contains all functionality to interface with the IRobot Create V2
- * Communication over UART4 at 115200
- *
- * @author Noah Bergman
- * @date 03/11/2016
- *
- *
- *
- */
+/**
+*	@file open_interface.h
+*
+*	@brief Header file containing all functionality to interface with the
+* 	IRobot Create V2 Communication over UART4 at 115200.
+*
+* 	@author Noah Bergman
+* 	@date 03/11/2016
+*/
 
 #ifndef OPEN_INTERFACE_H_
 #define OPEN_INTERFACE_H_

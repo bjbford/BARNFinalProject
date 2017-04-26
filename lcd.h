@@ -1,9 +1,10 @@
-/*
- * lcd.h
- *
- *  Created on: Mar 1, 2016
- *      Author: nbergman
- */
+/**
+*	@file lcd.h
+*	@brief Header file containing functions for displaying content on the 4x16 Character LCD Screen.
+*
+*	@author Noah Bergman, Eric Middleton
+*	@date 02/29/2016
+*/
 
 #ifndef LCD_H_
 #define LCD_H_

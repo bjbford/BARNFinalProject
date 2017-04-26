@@ -1,17 +1,12 @@
-/*
- * open_interface.c
- *
- *  Created on: Mar 11, 2016
- *      Author: nbergman
- */
-
-
-/*
- * Open Interface
- *
- *  Created on: Mar 3, 2016
- *      Author: Noah Bergman, Eric Middleton, dmlarson
- */
+/**
+*	@file open_interface.c
+*
+*	@brief Contains all functionality to interface with the IRobot Create V2
+* 	Communication over UART4 at 115200.
+*
+* 	@author Noah Bergman
+* 	@date 03/11/2016
+*/
 
 #include "open_interface.h"
 

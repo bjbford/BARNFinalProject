@@ -1,10 +1,12 @@
-/*
- * Commands for Robot to execute.
- *
- *  Created on: Apr 12, 2017
- *      Author: bjbford
- */
-
+/**
+*  @file commands.c
+*  @brief this file will contain all required commands for
+*  the Roomba to execute.
+*
+*  @author	Brian Bradford, Nick Knuth, Andrew Thai, and Rajiv Bhoopala
+*
+*  @date	4/12/2017
+*/
 
 #include "helpers.h"
 #include <stdio.h>
@@ -20,9 +22,11 @@
 #include "commands.h"
 
 /**
- * Sweep with both the Ping sensor and IR distance sensor over the 180 degree range of the servo,
- * taking distance measurements from both sensors every 2 degrees and transmitting the data over WiFi to Putty.
- */
+* 	Sweep with both the Ping sensor and IR distance sensor over the 180 degree range of the servo,
+* 	taking distance measurements from both sensors every 2 degrees and transmitting the data over WiFi to Putty.
+* 	@author	Brian Bradford, Nick Knuth, Andrew Thai, and Rajiv Bhoopala
+* 	@date 4/12/2017
+*/
 void sweep(){
 	int degree=0, beginDegree = 0, angSize = 0;
 	int objectLocation = 0;		//location of object in degrees
@@ -45,7 +49,7 @@ void sweep(){
 	 */
 	int objectState = 0;
 
-	//Arrays to store Cartesian distance for Excel to be outputed to a .txt file.
+	//Arrays to store Cartesian distance to be outputed to Putty.
 	float xCartesian[92] = {};
 	float yCartesian[92] = {};
 
@@ -132,8 +136,11 @@ void sweep(){
 }
 
 /**
- *
- */
+*	This method will be used to receive commands from PS4 controller on the Roomba to execute,
+*	and output feedback back to Putty.
+*	@author	Brian Bradford, Nick Knuth, Andrew Thai, and Rajiv Bhoopala
+*	@date 4/12/2017
+*/
 void move_roomba ()
 {
        oi_t *sensor_data = oi_alloc();
@@ -199,9 +206,14 @@ void move_roomba ()
         oi_free(sensor_data);
 }
 
-/*
- *
- */
+/**
+*	This method will be used to move the Roomba forward a given distance
+*	while checking for a white line, cliff, or object bump.
+*	@author	Brian Bradford, Nick Knuth, Andrew Thai, and Rajiv Bhoopala
+*	@param	*sensor			Pointer to struct containing Roomba sensor data
+*	@param 	centimeters		Distance for Roomba to move
+*	@date 4/12/2017
+*/
 void move_forward(oi_t *sensor, int centimeters){
     int sum = 0 ;
     while (sum < centimeters)
@@ -347,8 +359,12 @@ void move_forward(oi_t *sensor, int centimeters){
 }
 
 /**
- *
- */
+*	This method will be used to move the Roomba backwards a given distance.
+*	@author	Brian Bradford, Nick Knuth, Andrew Thai, and Rajiv Bhoopala
+*	@param	*sensor			Pointer to struct containing Roomba sensor data
+*	@param 	centimeters		Distance for Roomba to move
+*	@date 4/12/2017
+*/
 void move_backwards(oi_t *sensor, int centimeters)
 {
     oi_setWheels(-100, -100); //move backward; half speed
@@ -368,6 +384,13 @@ void move_backwards(oi_t *sensor, int centimeters)
     oi_free(sensor);
 }
 
+/**
+*	This method will be used to rotate the Roomba counterClockwise a given amount of degrees.
+*	@author	Brian Bradford, Nick Knuth, Andrew Thai, and Rajiv Bhoopala
+*	@param	*sensor		Pointer to struct containing Roomba sensor data
+*	@param 	degrees		Degrees for Roomba to rotate
+*	@date 4/12/2017
+*/
 void turn_counterClockwise(oi_t *sensor, int degrees){
     oi_setWheels(100, -100);
     timer_waitMillis(degrees*22);
@@ -376,6 +399,13 @@ void turn_counterClockwise(oi_t *sensor, int degrees){
 
 }
 
+/**
+*	This method will be used to rotate the Roomba clockwise a given amount of degrees.
+*	@author	Brian Bradford, Nick Knuth, Andrew Thai, and Rajiv Bhoopala
+*	@param	*sensor		Pointer to struct containing Roomba sensor data
+*	@param 	degrees		Degrees for Roomba to rotate
+*	@date 4/12/2017
+*/
 void turn_clockwise(oi_t *sensor, int degrees){
     oi_setWheels(-100, 100);
     timer_waitMillis(degrees*22);
@@ -384,8 +414,11 @@ void turn_clockwise(oi_t *sensor, int degrees){
 }
 
 /**
- *
- */
+*	This method will be used to check the state of the bumper sensors.
+*	@author	Brian Bradford, Nick Knuth, Andrew Thai, and Rajiv Bhoopala
+*	@param	*sensor		Pointer to struct containing Roomba sensor data
+*	@date 4/12/2017
+*/
 int checkBumper(oi_t *sensor)
 {
 	/**
@@ -434,8 +467,11 @@ int checkBumper(oi_t *sensor)
 }
 
 /**
- *
- */
+*	This method will be used to check the state of the cliff sensors.
+*	@author	Brian Bradford, Nick Knuth, Andrew Thai, and Rajiv Bhoopala
+*	@param	*sensor		Pointer to struct containing Roomba sensor data
+*	@date 4/12/2017
+*/
 int checkCliff(oi_t *sensor)
 {
     oi_update(sensor);
