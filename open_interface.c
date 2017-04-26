@@ -418,7 +418,6 @@ char oi_uartReceive(void)
 
 	count++;
 
-	//ToDo: Implement error checking
 	return data;
 }
 

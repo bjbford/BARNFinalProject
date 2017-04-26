@@ -1,5 +1,5 @@
 /*
- * helpers.c
+ * Helper functions used for formating object data and output to Putty.
  *
  *  Created on: Apr 12, 2017
  *      Author: bjbford
@@ -17,10 +17,12 @@
  */
 void polar2Cart(int degree, float ir, float sonar, float *x, float *y){
     int i = degree/2;
+    //Cap at 100 cm if distance is > 100.0 cm
     if((ir > 100.0) || (sonar > 100.0)){
         x[i] = 100.0 * cosf((degree*M_PI)/(180.0));
         y[i] = 100.0 * sinf((degree*M_PI)/(180.0));
     }
+    //Good distance data
     else{
         x[i] = sonar * cosf((degree*M_PI)/(180.0));
         y[i] = sonar * sinf((degree*M_PI)/(180.0));
@@ -89,7 +91,7 @@ void setObjectData(struct object *object_data, int objectCount, float angWidth, 
 }
 
 /**
- * Write cartesian values from arrays capped at a range of 100 cm to Putty for use of Radial plot in Excel.
+ * Write cartesian values from arrays capped at a range of 100 cm to Putty for use of Radial plot in Putty.
  */
 void arrayOutput(float *x, float *y){
     //Send xCartesian coordinate to Putty in form of string
@@ -116,6 +118,9 @@ void arrayOutput(float *x, float *y){
     }
 }
 
+/**
+ * Print out a 2 dimensional array in Putty, based off of a radial plot for object detection.
+ */
 void arrayGridPutty(float *x, float *y){
     int i = 0, j = 0;
     char map[1][200];
@@ -164,29 +169,25 @@ void objectDataOutput(struct object *object_data, int objectCount){
     uart_sendStr(string);
     int i=0;
     for(i=0;i<objectCount;i++){
-        //Output location
+        //Output location to Putty
         uart_sendStr("Location: ");
         char locationBuff[4] = "\0";
         snprintf(locationBuff,4,"%d",object_data[i].location);
         uart_sendStr(locationBuff);
         uart_sendStr("\r\n");
 
-        //Output distance
+        //Output distance to Putty
         uart_sendStr("Distance: ");
         char distanceBuff[50] = "\0";
         snprintf(distanceBuff,50,"%.2f",object_data[i].distance);
         uart_sendStr(distanceBuff);
         uart_sendStr("\r\n");
 
-        //Output width
+        //Output width to Putty
         uart_sendStr("Width: ");
         char widthBuff[50] = "\0";
         snprintf(widthBuff,50,"%.2f",object_data[i].width);
         uart_sendStr(widthBuff);
         uart_sendStr("\r\n\r\n");
-/*
-        if(object_data[i].width < 6.0){
-        	uart_sendStr("Finish marker detected!!\r\n\r\n");
-        }*/
     }
 }
