@@ -1,9 +1,9 @@
-/*
- * Timer.hpp
- *
- *  Created on: Mar 3, 2016
- *      Author: ericm
- */
+/**
+*	@file Timer.h
+*	@brief This file contains the methods to operate system timers.
+*	@author	ericm
+*	@date 3/3/2016
+*/
 
 #ifndef TIMER_H_
 #define TIMER_H_

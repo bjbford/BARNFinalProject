@@ -1,97 +1,69 @@
-/*
- * uart.c
- *
- *  Created on: 2-15-2017
- *      Author: Brian Bradford and Rajiv Bhoopala
- */
+/**
+*	@file uart.h
+*	@brief This file contains all the methods to communicate between the robot and the computer.
+* 	@author	Brian Bradford, Rajiv Bhoopala, Andrew Thai, Nick Knuth
+*	@date 2/15/2017
+*/
 
 #include <string.h>
 #include "uart.h"
 #include "button.h"
 #include "timer.h"
 
-//Send string over uart
+/**
+*	This method is used to send strings from the robot to Putty.
+*	@author	Brian Bradford, Rajiv Bhoopala, Andrew Thai, Nick Knuth
+*	@param data	String to be sent from the robot to Putty
+*	@date 2/15/2017
+*/
 void uart_sendStr(char data[]){
 	int i=0;
-	for(i=0; data[i] != '\0'; i++){
+	//Iterates over string and uses sendChar
+	for(i=0; data[i] != '\0'; i++)
+	{
 		uart_sendChar(data[i]);
 	}
 }
 
 
-//Blocking call that sends 1 char over UART 1
+/**
+*	This method is used to send characters from the robot to Putty.
+*	@author	Brian Bradford, Rajiv Bhoopala, Andrew Thai, Nick Knuth
+*	@param data	Character to be sent from the robot to Putty
+*	@date 2/15/2017
+*/
 void uart_sendChar(char data){
 	//wait until there is room to send data
 	while(UART1_FR_R & 0x20)
 	{
+		
 	}
 	//send data
 	UART1_DR_R = data;
 }
 
-//Blocking call to receive over uart1
-//returns char with data
+/**
+*	This method is used to send characters from Putty to the robot.
+*	@author	Brian Bradford, Rajiv Bhoopala, Andrew Thai, Nick Knuth
+*	@date 2/15/2017
+*/
 char uart_receive(void){
 	char data = 0;
 	//wait to receive
 	while(UART1_FR_R & UART_FR_RXFE)
 	{
-//		//PART 3
-//		uint8_t button = button_getButton();
-//		static uint8_t tempButton = 0;			//to be used in order to avoid improper hold down of button
-//
-//		if(button == tempButton){
-//			//do nothing
-//		}
-//		else if(button == 6){					//Button 6 pressed
-//			char string[] = "Yes\r\n";
-//			int j = 0;
-//			for(j=0;j<strlen(string);j++){
-//				uart_sendChar(string[j]);
-//			}
-//		}
-//		else if(button == 5){					//Button 5 pressed
-//			char string[] = "No\r\n";
-//			int j = 0;
-//			for(j=0;j<strlen(string);j++){
-//				uart_sendChar(string[j]);
-//			}
-//		}
-//		else if(button == 4){					//Button 4 pressed
-//			char string[] = "Blue, no green, Ahhhhh!!!\r\n";
-//			int j = 0;
-//			for(j=0;j<strlen(string);j++){
-//				uart_sendChar(string[j]);
-//			}
-//		}
-//		else if(button == 3){					//Button 3 pressed
-//			char string[] = "Hello?\r\n";
-//			int j = 0;
-//			for(j=0;j<strlen(string);j++){
-//				uart_sendChar(string[j]);
-//			}
-//		}
-//		else if(button == 2){					//Button 2 pressed
-//			char string[] = "Are you receiving me?\r\n";
-//			int j = 0;
-//			for(j=0;j<strlen(string);j++){
-//				uart_sendChar(string[j]);
-//			}
-//		}
-//		else if(button == 1){					//Button 1 pressed
-//			char string[] = "Talk to me!\r\n";
-//			int j = 0;
-//			for(j=0;j<strlen(string);j++){
-//				uart_sendChar(string[j]);
-//			}
-//		}
-//		tempButton = button;					//update with new button press
+		
 	}
 	//mask the 4 error bits and grab only 8 data bits
 	data = (char)(UART1_DR_R & 0xFF);
 	return data;
 }
 
+/**
+*	This method is used to initiate UART communication.
+*	@author	Brian Bradford, Rajiv Bhoopala, Andrew Thai, Nick Knuth
+*	@date 2/15/2017
+*/
 void uart_init(void) {
 	//enable clock to GPIO, R1 = port B
 	SYSCTL_RCGCGPIO_R |= SYSCTL_RCGCGPIO_R1;

@@ -1,8 +1,9 @@
-/*
- * Timer.cpp
- *
- *  @author Eric Middleton
- */
+/**
+*	@file Timer.h
+*	@brief This file contains the methods to operate system timers.
+*	@author	ericm
+*	@date 3/3/2016
+*/
 
 #include "Timer.h"
 

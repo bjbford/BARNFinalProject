@@ -1,9 +1,9 @@
-/*
- * ping.h
- *
- *  Created on: 3-1-2017
- *      Author: Brian Bradford and Rajiv Bhoopala
- */
+/**
+*	@file ping.h
+*	@brief This file contains the methods necessary to operate and collect data from the ping sensor.
+*	@author Brian Bradford, Rajiv Bhoopala, Andrew Thai, Nick Knuth
+*	@date 3/1/2017
+*/
 
 #ifndef PING_H_
 #define PING_H_
@@ -31,10 +31,32 @@ volatile uint32_t risingEdge;
 volatile uint32_t fallingEdge;
 volatile uint32_t pulseLength;
 
-void ping_init(void);
+/**
+*	This method captures the time from when the sensor sends a pulse and it returns.
+*	@author	Brian Bradford, Rajiv Bhoopala, Andrew Thai, Nick Knuth
+*	@date 3/1/2017
+*/
+void TIMER3B_Handler(void);
 
-void send_pulse(void);
+/**
+*	This method initiates the ping sensor.
+*	@author Brian Bradford, Rajiv Bhoopala, Andrew Thai, Nick Knuth
+*	@date 3/1/2017
+*/
+void ping_init();
 
-float ping_getDistance(void);
+/**
+*	This method operates the ping sensor.
+*	@author Brian Bradford, Rajiv Bhoopala, Andrew Thai, Nick Knuth
+*	@date 3/1/2017
+*/
+void send_pulse();
+
+/**
+*	This method collects the ping sensor data.
+*	@author Brian Bradford, Rajiv Bhoopala, Andrew Thai, Nick Knuth
+*	@date 3/1/2017
+*/
+float ping_getDistance();
 
 #endif /* PING_H_ */
