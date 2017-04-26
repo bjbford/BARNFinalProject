@@ -6,7 +6,7 @@
 * Rajiv Bhoopala: rajiv@iastate.edu
 * Nick Knuth: njknuth@iastate.edu
 
-#Story
+# Story
 Briefing: VORTEX, the code name for your development platform, includes the iRobot Create, the Cerebot
 II board, and attachments such as the servo, SONAR, IR sensor, and LCD.
 Your team has been asked to develop an interplanetary rover using the VORTEX platform. Both NASA
@@ -23,7 +23,7 @@ retrieval zone will be marked, so you will be able to recognize it from the info
 you. After the VORTEX enters the retrieval zone, it should send signals to mission control indicating the
 rover is ready for retrieval.
 
-#Project Description
+# Project Description
 The VORTEX platform will be placed at a random position in the test field. The rover should traverse
 through several hazards to position itself within the retrieval zone. This project is composed of three
 sub goals defined in the following sections.
