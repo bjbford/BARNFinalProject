@@ -1,83 +1,156 @@
-/*
- * ping.c
- *
- *  Created on: Mar 1, 2017
- *      Author: Brian Bradford and Rajiv Bhoopala
- */
+/**
+*	@file ping.c
+*	@brief This file contains the methods necessary to operate and collect data from the ping sensor.
+*	@author Brian Bradford, Rajiv Bhoopala, Andrew Thai, Nick Knuth
+*	@date 3/1/2017
+*/
 #include "ping.h"
 
-void TIMER3B_Handler(void);
-
+/**
+*	This method initiates the ping sensor.
+*	@author Brian Bradford, Rajiv Bhoopala, Andrew Thai, Nick Knuth
+*	@date 3/1/2017
+*/
 void ping_init(void){
-	SYSCTL_RCGCTIMER_R |= SYSCTL_RCGCTIMER_R3;	//Turn on clock to TIMER3
-	SYSCTL_RCGCGPIO_R |= 0x02;	//Port B (bit1) system clock
-	GPIO_PORTB_DEN_R |= 0x08;	//Pin 3 init
+	//Turn on clock to TIMER3
+	SYSCTL_RCGCTIMER_R |= SYSCTL_RCGCTIMER_R3;
+
+	//Port B (bit1) system clock
+	SYSCTL_RCGCGPIO_R |= 0x02;
+	
+	//Pin 3 init
+	GPIO_PORTB_DEN_R |= 0x08;
 	GPIO_PORTB_PCTL_R |= GPIO_PCTL_PB3_T3CCP1;
 
-	TIMER3_CTL_R &= ~TIMER_CTL_TBEN;	//Configure the timer for input capture mode
-	TIMER3_CTL_R |= TIMER_CTL_TBEVENT_BOTH;	//Edge select
-	TIMER3_CFG_R |= TIMER_CFG_16_BIT;	//Set to a 16 bit counter
-	TIMER3_TBMR_R |= TIMER_TBMR_TBMR_CAP;	//Capture mode
-	TIMER3_TBMR_R |= TIMER_TBMR_TBCMR;	//Edge-time mode
-	TIMER3_TBMR_R |= TIMER_TBMR_TBCDIR;	//count up.
-	TIMER3_TBILR_R |= 0xFFFF;	//Set upper bound
-	TIMER3_IMR_R |= TIMER_IMR_CBEIM;	//enable capture input
-	TIMER3_ICR_R |= TIMER_ICR_CBECINT;	//clears interrupt flags
+	//Configure the timer for input capture mode
+	TIMER3_CTL_R &= ~TIMER_CTL_TBEN;
+	
+	//Edge select
+	TIMER3_CTL_R |= TIMER_CTL_TBEVENT_BOTH;
+	
+	//Set to a 16 bit counter
+	TIMER3_CFG_R |= TIMER_CFG_16_BIT;
+	
+	//Capture mode
+	TIMER3_TBMR_R |= TIMER_TBMR_TBMR_CAP;
+	
+	//Edge-time mode
+	TIMER3_TBMR_R |= TIMER_TBMR_TBCMR;
+	
+	//count up.
+	TIMER3_TBMR_R |= TIMER_TBMR_TBCDIR;
+	
+	//Set upper bound
+	TIMER3_TBILR_R |= 0xFFFF;
+	
+	//enable capture input
+	TIMER3_IMR_R |= TIMER_IMR_CBEIM;
+	
+	//clears interrupt flags
+	TIMER3_ICR_R |= TIMER_ICR_CBECINT;
 
 	//105 and 142 interrupt #
-	NVIC_EN1_R |= 0x10; //Timer 3B: 36 Register 5, set Enable (EN1) BIT4 or 0x10
+	//Timer 3B: 36 Register 5, set Enable (EN1) BIT4 or 0x10
+	NVIC_EN1_R |= 0x10;
 
-	IntRegister(INT_TIMER3B, TIMER3B_Handler);	//register TIMER3B interrupt handler
-	IntMasterEnable();	//initialize global interrupts
+	//register TIMER3B interrupt handler
+	IntRegister(INT_TIMER3B, TIMER3B_Handler);
+	
+	//initialize global interrupts
+	IntMasterEnable();
 
 	//TIMER3_CTL_R |= TIMER_CTL_TBEN;	//Enables TIMER3B
 }
 
-// send out a pulse on PB3
+/**
+*	This method operates the ping sensor.
+*	@author Brian Bradford, Rajiv Bhoopala, Andrew Thai, Nick Knuth
+*	@date 3/1/2017
+*/
 void send_pulse(){
 	//alternative and port control (AFSEL and CTL)
 	//alt function off
 	GPIO_PORTB_AFSEL_R &= ~(0x08);
-	GPIO_PORTB_PCTL_R &= ~(0x0000F000);//off
-	GPIO_PORTB_DIR_R |= 0x08; // set PB3 as output
-	GPIO_PORTB_DATA_R |= 0x08; // set PB3 to high
-	timer_waitMicros(5); // wait at least 5 microseconds based on data sheet
-	GPIO_PORTB_DATA_R &= 0xF7; // set PB3 to low
+	
+	//off
+	GPIO_PORTB_PCTL_R &= ~(0x0000F000);
+	
+	// set PB3 as output
+	GPIO_PORTB_DIR_R |= 0x08; 
+	
+	// set PB3 to high
+	GPIO_PORTB_DATA_R |= 0x08;
+	
+	// wait at least 5 microseconds based on data sheet
+	timer_waitMicros(5); 
+	
+	// set PB3 to low
+	GPIO_PORTB_DATA_R &= 0xF7;
 	state = RISE;
-	GPIO_PORTB_DIR_R &= 0xF7; // set PB3 as input
+	
+	// set PB3 as input
+	GPIO_PORTB_DIR_R &= 0xF7;
+	
 	//alt function on
 	GPIO_PORTB_AFSEL_R |= 0x08;
-	GPIO_PORTB_PCTL_R |= 0x00007000; //enable pin3 alternate function 7 T3CCP1
+	
+	//enable pin3 alternate function 7 T3CCP1
+	GPIO_PORTB_PCTL_R |= 0x00007000;
 
 	//enable TIMER3B and start counting
 	TIMER3_CTL_R |= TIMER_CTL_TBEN;// 0x100
 }
 
-
-
+/**
+*	This method captures the time from when the sensor sends a pulse and it returns.
+*	@author	Brian Bradford, Rajiv Bhoopala, Andrew Thai, Nick Knuth
+*	@date 3/1/2017
+*/
 void TIMER3B_Handler(void)
 {
-	if(TIMER3_MIS_R & TIMER_MIS_CBEMIS) {// fixed condition
+	// fixed condition
+	if(TIMER3_MIS_R & TIMER_MIS_CBEMIS) {
 		if(state == RISE)
 		{
-			TIMER3_ICR_R = TIMER_ICR_CBECINT; //clear capture interrupt flag
-			risingEdge = ((int)TIMER3_TBPS_R << 16) | TIMER3_TBR_R; //captures time of rising edge event
-			state = FALL; //now capturing falling edge
+			//clear capture interrupt flag
+			TIMER3_ICR_R = TIMER_ICR_CBECINT;
+			
+			//captures time of rising edge event
+			risingEdge = ((int)TIMER3_TBPS_R << 16) | TIMER3_TBR_R;
+
+			//now capturing falling edge
+			state = FALL;
 		}
-		else if(state == FALL){
-			TIMER3_ICR_R = TIMER_ICR_CBECINT; //clear capture interrupt flag
-			fallingEdge = ((int)TIMER3_TBPS_R << 16) | TIMER3_TBR_R; //capture time of falling edge
+		else if(state == FALL)
+		{
+			//clear capture interrupt flag
+			TIMER3_ICR_R = TIMER_ICR_CBECINT;
+			
+			//capture time of falling edge
+			fallingEdge = ((int)TIMER3_TBPS_R << 16) | TIMER3_TBR_R; 
 			state = DONE;
-			TIMER3_CTL_R &= ~TIMER_CTL_TBEN; //disable timerB
+			
+			//disable timerB
+			TIMER3_CTL_R &= ~TIMER_CTL_TBEN;
 		}
 	}
 }
+
+/**
+*	This method collects the ping sensor data.
+*	@author Brian Bradford, Rajiv Bhoopala, Andrew Thai, Nick Knuth
+*	@date 3/1/2017
+*/
 float ping_getDistance()
 {
 	send_pulse();
+	
 	//wait until end of pulse
-	while(state != DONE){
+	while(state != DONE)
+	{
+		
 	}
+	
 	//Correction for overflow
 	int overflow = (fallingEdge < risingEdge);
 
