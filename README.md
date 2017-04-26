@@ -75,3 +75,16 @@ Successful completion of this project part is determined by traversing the hazar
 identifying the retrieval zone. The retrieval zone is a clear area marked off by four pillars.
 
 Each of these pillars has distinct features that the VORTEX should be able to recognize using its sensors.
+
+# Part III. Positioning the Rover for Retrieval
+Once the retrieval zone has been identified, the people at Mission Control should be able to position the
+robot within the retrieval zone. The rover should be fully located within the retrieval zone. Failure to
+properly position the VORTEX could result in damage during retrieval. Points will be removed in the
+VORTEX is not properly positioned in the retrieval zone. The VORTEX should then signal the orbiter for
+retrieval.
+
+Touching the pillars identifying the retrieval zone could be dangerous since the retrieval craft uses them
+to determine the position of the rover in the zone. The pillars are durable and heavy enough to be
+withstand minor contact, but if any are moved significantly during the process of positioning the rover in
+the zone, retrieval could fail. Penalties will be assessed in the event that any pillar is significantly moved.
+For point reduction specifics will be given in a Penalty Table in a following document.
