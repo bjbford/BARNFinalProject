@@ -1,5 +1,5 @@
 /**
-*  @file ir.c
+*  @file ir.h
 *  @brief this file will contain all basic ir functions.
 *
 *  @author	Brian Bradford, Nick Knuth, Andrew Thai, and Rajiv Bhoopala
