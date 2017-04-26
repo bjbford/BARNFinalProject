@@ -58,7 +58,7 @@ void sweep(){
 		float irDist = ir_getDistance();
 		float sonarDist = ping_getDistance();
 
-		lcd_printf("Object State: %d\nIR (cm): %.1f\nSonar (cm): %.1f\nObject Count: %d",objectState, irDist, sonarDist, objectCount);
+		//lcd_printf("Object State: %d\nIR (cm): %.1f\nSonar (cm): %.1f\nObject Count: %d",objectState, irDist, sonarDist, objectCount);
 
 		//FIRST DETECT STATE
 		if((sonarDist < 100.0) && (irDist < 100.0) && ((objectState == 0) || (objectState == 4) || (objectState == 6))){
@@ -124,7 +124,7 @@ void sweep(){
 	//arrayOutput(xCartesian, yCartesian);
 	//timer_waitMillis(2000);
 	arrayGridPutty(xCartesian, yCartesian);
-	timer_waitMillis(2000);
+	timer_waitMillis(3000);
 	//send struct of object_data to Putty
 	objectDataOutput(object_data, objectCount);
 	move_servo(0);
@@ -182,6 +182,22 @@ void move_roomba ()
             uart_sendStr(scanning);
             sweep() ;
         }
+
+
+        //play song
+        else if (input == 0x36)
+        {
+            char songStatement[] = "Playing Song\r\n" ;
+            uart_sendStr(songStatement) ;
+
+            unsigned char notes[36] = {67,66,67,64,65,66,67,72,76,76,74,76,77,71,74,72};
+            unsigned char lengths[36] = {17,17,17,102,51,51,102,51,38,13,51,51,51,51,102,51};
+            oi_loadSong(0, 16, notes, lengths);
+
+            oi_play_song(0);
+
+        }
+
         oi_free(sensor_data) ;
 }
 
@@ -217,6 +233,7 @@ void move_forward(oi_t *sensor, int centimeters){
                    char* warning = "Finish is on Left Side! \n\r" ;
                    uart_sendStr(warning);
 
+
                }
        //        sprintf(str, "%d\n\r", rightSignal);
        //        uart_sendStr(str);
@@ -224,6 +241,7 @@ void move_forward(oi_t *sensor, int centimeters){
                {
                    char* warning = "Finish is on RIGHT side! \n\r" ;
                    uart_sendStr(warning);
+
 
                }
                if(frontLeftSignal < 1200)

@@ -16,7 +16,7 @@
  */
 int main(void) {
 	init_All();
-	sweep();
+
 
 	
 //	oi_t *sensor_data = oi_alloc() ;
@@ -24,19 +24,22 @@ int main(void) {
 //
 //
 //
-//	while (1)
-//	{
-//	    move_roomba() ;
-//	}
+
+	char instructions[] = "Welcome to roomba obstacle course! \r\nMove forward = up on dpad\r\nMove backwards = down on dpad\r\nRotate clockwise = right on dpad\r\n Rotate counterclock = left on dpad\r\nScan = X\r\n Song = Triangle\r\n";
+	        uart_sendStr(instructions);
+	while (1)
+	{
+	    move_roomba() ;
+	}
 }
 
 /**
  *	Initializes all functions needed for Rover.
  */
 void init_All(){
-    //WiFi_start("password");
+//WiFi_start("password");
 	//wait 10 seconds to get WiFi configured
-	timer_waitMillis(20000);
+	//timer_waitMillis(10000);
 	uart_init();
 	//wait 5 seconds for putty to connect
 	//timer_waitMillis(5000);
