@@ -19,6 +19,8 @@
 #include "button.h"
 #include "commands.h"
 
+void init_All();
+
 
 /**
 *	Infinite loop for Roomba to navigate with GUI instructions for Putty.
